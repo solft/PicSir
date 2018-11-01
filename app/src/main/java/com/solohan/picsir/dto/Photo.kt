@@ -1,4 +1,4 @@
-package com.solohan.picsir
+package com.solohan.picsir.dto
 
 import com.google.gson.annotations.SerializedName
 

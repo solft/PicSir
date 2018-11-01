@@ -21,8 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".SearchActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".DetailActivity"
+            android:label="Photo Detail"
+            android:launchMode="singleTop">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SearchActivity"/>
+        </activity>
     </application>
 
 </manifest>

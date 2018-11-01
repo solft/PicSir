@@ -3,9 +3,12 @@ package com.solohan.picsir
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import com.google.gson.GsonBuilder
+import com.solohan.picsir.dto.FlickrResponse
+import com.solohan.picsir.dto.Photo
 import kotlinx.android.synthetic.main.activity_search.*
 import okhttp3.*
 import java.io.IOException
@@ -20,30 +23,7 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        // 임시 데이터셋 시작
-        val picArray = ArrayList<Photo>()
-
-        picArray.add(Photo("id1", "secret1", "server1", 1, "title1"))
-        picArray.add(Photo("id2", "secret2", "server2", 2, "title2"))
-        picArray.add(Photo("id3", "secret3", "server3", 3, "title3"))
-        picArray.add(Photo("id4", "secret4", "server4", 4, "title4"))
-        picArray.add(Photo("id5", "secret5", "server5", 5, "title5"))
-        picArray.add(Photo("id6", "secret6", "server6", 6, "title6"))
-        // 임시 데이터셋 끝
-
-
-        // recyclerView 시작
-        /*
-        viewManager = GridLayoutManager(this, 2)
-        viewAdapter = PhotoAdapter(picArray)
-
-        recyclerView = findViewById<RecyclerView>(R.id.recycler_view_search).apply {
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
-        }
-        */
-        // recyclerView 끝
+        recycler_view_search.layoutManager = LinearLayoutManager(this)
 
         // 검색 시작
         btn_search_search.isFocusable = false
@@ -91,6 +71,11 @@ class SearchActivity : AppCompatActivity() {
 
                     runOnUiThread {
                         Log.d("SearchActivity", "runOnUiThread recycler view adapter start")
+
+                        recycler_view_search.adapter = PhotoAdapter(flickrResponse.photos.photo)
+
+                        /*
+                        이렇게 하면 다시 SearchActivity 로 갔을 때 검색한 정보가 없어진다.
                         viewManager = GridLayoutManager(this@SearchActivity, 2)
                         viewAdapter = PhotoAdapter(flickrResponse.photos.photo)
 
@@ -99,6 +84,7 @@ class SearchActivity : AppCompatActivity() {
                             layoutManager = viewManager
                             adapter = viewAdapter
                         }
+                        */
                     }
 
                     //val gson = GsonBuilder().setPrettyPrinting().create()
