@@ -29,7 +29,9 @@
                 android:layout_marginLeft="@dimen/search_margin"
                 android:layout_marginBottom="@dimen/search_margin"
                 android:paddingRight="@dimen/search_padding"
-                android:paddingLeft="@dimen/search_padding"/>
+                android:paddingLeft="@dimen/search_padding"
+                android:imeOptions="actionSearch"
+                android:inputType="text"/>
         </android.support.design.widget.TextInputLayout>
 
         <Button

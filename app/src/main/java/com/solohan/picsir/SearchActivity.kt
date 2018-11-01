@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.inputmethod.EditorInfo
 import com.google.gson.GsonBuilder
 import com.solohan.picsir.dto.FlickrResponse
 import com.solohan.picsir.dto.Photo
@@ -34,6 +35,16 @@ class SearchActivity : AppCompatActivity() {
             Log.d("SearchActivity", "searchWord = $searchWord")
             searchImageWithWord(searchWord)
         }
+        btn_search_search.setOnEditorActionListener { v, actionId, event ->
+            if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                val searchWord = edit_text_search.text.toString()
+                Log.d("SearchActivity", "action search Word = $searchWord")
+                searchImageWithWord(searchWord)
+                true
+            }else{
+                false
+            }
+        }
     }
 
 
@@ -42,7 +53,7 @@ class SearchActivity : AppCompatActivity() {
         val API_KEY = "cef74a9189ee4116482425e2489bc861"
 
         Log.d("SearchActivity", "searchImageWithWord searchWord : $searchWord")
-        val url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=$API_KEY&text=$searchWord&safe_search=1&content_type=1&sort=interestingness-desc&per_page=5&format=json"
+        val url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=$API_KEY&text=$searchWord&safe_search=1&content_type=1&sort=interestingness-desc&per_page=50&format=json"
 
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
