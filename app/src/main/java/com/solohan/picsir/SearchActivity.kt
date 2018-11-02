@@ -1,12 +1,16 @@
 package com.solohan.picsir
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import com.google.gson.GsonBuilder
 import com.solohan.picsir.dto.FlickrResponse
 import com.solohan.picsir.dto.Photo
@@ -35,16 +39,30 @@ class SearchActivity : AppCompatActivity() {
             Log.d("SearchActivity", "searchWord = $searchWord")
             searchImageWithWord(searchWord)
         }
-        btn_search_search.setOnEditorActionListener { v, actionId, event ->
-            if(actionId == EditorInfo.IME_ACTION_SEARCH){
-                val searchWord = edit_text_search.text.toString()
+        // soft keyboard 의 search 키 눌렀을 때
+        edit_text_search.setOnEditorActionListener { v, actionId, event ->
+            v.clearFocus()
+            v.hideKeyboard()
+            Log.d("SearchActivity", "v.text = ${v.text}")
+            if(v.text.toString() != "" && actionId == EditorInfo.IME_ACTION_SEARCH){
+                val searchWord = v.text.toString()
                 Log.d("SearchActivity", "action search Word = $searchWord")
                 searchImageWithWord(searchWord)
                 true
+            }else if(v.text.toString() == ""){
+                // 입력 안했을 때
+                Toast.makeText(this, "검색어를 입력하세요.", Toast.LENGTH_SHORT).show()
+                false
             }else{
                 false
             }
         }
+    }
+
+    // soft keyboard 숨기기
+    fun View.hideKeyboard(){
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
     }
 
 
