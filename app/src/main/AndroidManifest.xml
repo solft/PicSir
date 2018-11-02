@@ -23,10 +23,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".SearchActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:theme="@style/SearchTheme"/>
         <activity android:name=".DetailActivity"
             android:label="Photo Detail"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/DetailTheme">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SearchActivity"/>
         </activity>

@@ -9,8 +9,7 @@
     <ImageView
         android:id="@+id/iv_photo_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        android:layout_height="wrap_content" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_save_detail"

@@ -20,27 +20,14 @@ import java.io.IOException
 
 class SearchActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
         recycler_view_search.layoutManager = LinearLayoutManager(this)
 
-        // 검색 시작
-        btn_search_search.isFocusable = false
-        btn_search_search.setOnClickListener {
-            // editText 로 부터 검색어 읽어서 함수의 argument 로 전달
-            // 아직 띄어쓰기는 구현 안함 (한 단어만)
-            val searchWord = edit_text_search.text.toString()
-            Log.d("SearchActivity", "searchWord = $searchWord")
-            searchImageWithWord(searchWord)
-        }
         // soft keyboard 의 search 키 눌렀을 때
-        edit_text_search.setOnEditorActionListener { v, actionId, event ->
+        edit_text_search.setOnEditorActionListener { v, actionId, _ ->
             v.clearFocus()
             v.hideKeyboard()
             Log.d("SearchActivity", "v.text = ${v.text}")
@@ -100,7 +87,8 @@ class SearchActivity : AppCompatActivity() {
 
                     runOnUiThread {
                         Log.d("SearchActivity", "runOnUiThread recycler view adapter start")
-
+                        iv_enter_keyword.visibility = View.INVISIBLE
+                        recycler_view_search.visibility = View.VISIBLE
                         recycler_view_search.adapter = PhotoAdapter(flickrResponse.photos.photo)
 
                         /*

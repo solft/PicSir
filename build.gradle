@@ -19,6 +19,8 @@ allprojects {
     repositories {
         google()
         jcenter()
+        // PhotoView 를 위해서
+        maven { url "https://jitpack.io" }
     }
 }
 

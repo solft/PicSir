@@ -1,36 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/ll_pic_item">
 
-    <ImageView
-        android:id="@+id/iv_pic_image"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:src="@mipmap/ic_launcher"
-        android:scaleType="centerCrop"
-        android:padding="@dimen/item_pic_padding"
-        android:layout_margin="@dimen/item_pic_margin"/>
 
-    <TextView
-        android:id="@+id/tv_pic_title"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="textStart"
-        android:text="sample text"
-        android:textSize="18sp"
-        android:textColor="@android:color/black"
-        android:textStyle="bold"
-        android:layout_marginBottom="@dimen/item_pic_margin"
-        android:layout_marginStart="@dimen/item_pic_margin"
-        android:layout_marginEnd="@dimen/item_pic_margin"/>
+        android:layout_margin="@dimen/item_pic_margin"
+        app:cardCornerRadius="@dimen/item_pic_radius">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/black"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_pic_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:src="@mipmap/ic_launcher"
+                android:scaleType="centerCrop">
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tv_pic_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:text="sample text"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/item_pic_margin"
+                android:layout_marginStart="@dimen/item_pic_margin"
+                android:layout_marginEnd="@dimen/item_pic_margin"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
 
 </LinearLayout>

@@ -8,9 +8,11 @@ import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.dialog_detail.view.*
 import okhttp3.*
 import java.io.File
 import java.io.FileOutputStream
@@ -35,6 +37,17 @@ class DetailActivity : AppCompatActivity() {
         fab_save_detail.setOnClickListener {
             // 파일 저장
             savePhoto(photoUrl, photoTitle)
+        }
+
+        iv_photo_detail.setOnClickListener {
+            val mBuilder = AlertDialog.Builder(this@DetailActivity)
+            val mView = layoutInflater.inflate(R.layout.dialog_detail, null)
+            GlideApp.with(this)
+                    .load(photoUrl)
+                    .into(mView.dialog_detail_photo_view)
+            mBuilder.setView(mView)
+            val mDialog = mBuilder.create()
+            mDialog.show()
         }
     }
 

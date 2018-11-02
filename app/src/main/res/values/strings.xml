@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PicSir</string>
+    <string name="search_hint">검색어</string>
 </resources>
