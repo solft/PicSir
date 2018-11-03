@@ -1,24 +1,25 @@
 package com.solohan.picsir
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.PopupMenu
 import android.widget.Toast
 import com.google.gson.GsonBuilder
 import com.solohan.picsir.dto.FlickrResponse
-import com.solohan.picsir.dto.Photo
 import kotlinx.android.synthetic.main.activity_search.*
 import okhttp3.*
 import java.io.IOException
 
 class SearchActivity : AppCompatActivity() {
+    var flickrResponse :FlickrResponse? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +44,43 @@ class SearchActivity : AppCompatActivity() {
             }else{
                 false
             }
+        }
+
+
+        // popup menu
+        iv_setting.setOnClickListener {
+            val popupMenu = PopupMenu(this, it)
+            popupMenu.setOnMenuItemClickListener { item ->
+                when(item.itemId){
+                    R.id.menu_switch_linear -> {
+                        if(flickrResponse != null){
+                            recycler_view_search.layoutManager = LinearLayoutManager(this)
+                            recycler_view_search.adapter = PhotoAdapter(flickrResponse!!.photos.photo)
+                            true
+                        }else{
+                            false
+                        }
+                    }
+                    R.id.menu_switch_grid -> {
+                        if(flickrResponse != null){
+                            recycler_view_search.layoutManager = GridLayoutManager(this, 2)
+                            recycler_view_search.adapter = PhotoAdapter(flickrResponse!!.photos.photo)
+                            true
+                        }else{
+                            false
+                        }
+                    }
+                    R.id.menu_license -> {
+                        val intent = Intent(this, LicenceActivity::class.java)
+                        startActivity(intent)
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+            popupMenu.inflate(R.menu.menu_main)
+            popupMenu.show()
         }
     }
 
@@ -80,35 +118,17 @@ class SearchActivity : AppCompatActivity() {
                     Log.d("SearchActivity", "body = $body")
 
                     val gson = GsonBuilder().setPrettyPrinting().create()
-                    val flickrResponse = gson.fromJson(body, FlickrResponse::class.java)
+                    flickrResponse = gson.fromJson(body, FlickrResponse::class.java)
                     Log.d("SearchActivity", "flickrResponse = $flickrResponse")
-                    Log.d("SearchActivity", "first photo title = ${flickrResponse.photos.photo[0].title}")
-                    Log.d("SearchActivity", "first photo img url = ${flickrResponse.photos.photo[0].getImgUrl()}")
+                    Log.d("SearchActivity", "first photo title = ${flickrResponse!!.photos.photo[0].title}")
+                    Log.d("SearchActivity", "first photo img url = ${flickrResponse!!.photos.photo[0].getImgUrl()}")
 
                     runOnUiThread {
                         Log.d("SearchActivity", "runOnUiThread recycler view adapter start")
                         iv_enter_keyword.visibility = View.INVISIBLE
                         recycler_view_search.visibility = View.VISIBLE
-                        recycler_view_search.adapter = PhotoAdapter(flickrResponse.photos.photo)
-
-                        /*
-                        이렇게 하면 다시 SearchActivity 로 갔을 때 검색한 정보가 없어진다.
-                        viewManager = GridLayoutManager(this@SearchActivity, 2)
-                        viewAdapter = PhotoAdapter(flickrResponse.photos.photo)
-
-                        recyclerView = findViewById<RecyclerView>(R.id.recycler_view_search).apply {
-                            setHasFixedSize(true)
-                            layoutManager = viewManager
-                            adapter = viewAdapter
-                        }
-                        */
+                        recycler_view_search.adapter = PhotoAdapter(flickrResponse!!.photos.photo)
                     }
-
-                    //val gson = GsonBuilder().setPrettyPrinting().create()
-                    //var picList = gson.fromJson(body)
-
-                    //Log.d("SearchActivity", "gson: $gson")
-                    //Log.d("SearchActivity", "flickrResponse: $flickrResponse")
                 }else{
                     Log.d("SearchActivity", "response Unsuccessful")
                 }
