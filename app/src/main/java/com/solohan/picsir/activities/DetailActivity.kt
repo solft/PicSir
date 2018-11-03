@@ -1,8 +1,5 @@
-package com.solohan.picsir
+package com.solohan.picsir.activities
 
-import android.content.Context
-import android.content.ContextWrapper
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
@@ -11,14 +8,13 @@ import android.provider.MediaStore
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.widget.Toast
+import com.solohan.picsir.R
+import com.solohan.picsir.utils.GlideApp
+import com.solohan.picsir.utils.PhotoAdapter
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.dialog_detail.view.*
 import okhttp3.*
-import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
-import java.io.OutputStream
-import java.util.*
 
 class DetailActivity : AppCompatActivity() {
 

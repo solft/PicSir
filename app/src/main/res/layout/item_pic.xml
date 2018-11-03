@@ -23,7 +23,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:src="@mipmap/ic_launcher"
-                android:scaleType="centerCrop">
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/img_photo">
             </ImageView>
 
             <TextView
@@ -31,12 +32,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="textStart"
-                android:text="sample text"
+                android:text="@string/sample_string"
                 android:textSize="18sp"
                 android:textColor="@android:color/black"
-                android:textStyle="bold"
                 android:layout_marginBottom="@dimen/item_pic_margin"
-                android:layout_marginStart="@dimen/item_pic_margin"
+                android:layout_marginStart="@dimen/item_pic_margin_start"
                 android:layout_marginEnd="@dimen/item_pic_margin"/>
 
         </LinearLayout>

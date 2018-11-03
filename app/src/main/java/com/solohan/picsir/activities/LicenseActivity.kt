@@ -1,12 +1,13 @@
-package com.solohan.picsir
+package com.solohan.picsir.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.solohan.picsir.R
 
-class LicenceActivity : AppCompatActivity() {
+class LicenseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_licence)
+        setContentView(R.layout.activity_license)
     }
 }

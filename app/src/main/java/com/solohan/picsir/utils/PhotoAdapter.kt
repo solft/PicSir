@@ -1,10 +1,12 @@
-package com.solohan.picsir
+package com.solohan.picsir.utils
 
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.solohan.picsir.activities.DetailActivity
+import com.solohan.picsir.R
 import com.solohan.picsir.dto.Photo
 import kotlinx.android.synthetic.main.item_pic.view.*
 
@@ -51,7 +53,7 @@ class PhotoAdapter(var photo: MutableList<Photo>): RecyclerView.Adapter<PhotoAda
 
                 val intent = Intent(view.context, DetailActivity::class.java)
                 intent.putExtra(PHOTO_TITLE_KEY, photo?.title)
-                intent.putExtra(PHOTO_URL_KEY, photo?.getImgUrl() + "_z.jpg")
+                intent.putExtra(PHOTO_URL_KEY, photo?.getImgUrl() + "_b.jpg")
                 view.context.startActivity(intent)
             }
         }

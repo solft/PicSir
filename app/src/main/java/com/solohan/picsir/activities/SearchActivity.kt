@@ -1,4 +1,4 @@
-package com.solohan.picsir
+package com.solohan.picsir.activities
 
 import android.content.Context
 import android.content.Intent
@@ -11,12 +11,13 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.AbsListView
 import android.widget.PopupMenu
 import android.widget.Toast
 import com.google.gson.GsonBuilder
+import com.solohan.picsir.R
 import com.solohan.picsir.dto.FlickrResponse
 import com.solohan.picsir.dto.Photo
+import com.solohan.picsir.utils.PhotoAdapter
 import kotlinx.android.synthetic.main.activity_search.*
 import okhttp3.*
 import java.io.IOException
@@ -32,7 +33,7 @@ class SearchActivity : AppCompatActivity() {
     var searchWord: String = ""
     var photosList: MutableList<Photo> = mutableListOf()
     var currentPage = 0
-    var userScrolled = false
+    var userScrolled = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,7 +94,7 @@ class SearchActivity : AppCompatActivity() {
                         }
                     }
                     R.id.menu_license -> {
-                        val intent = Intent(this, LicenceActivity::class.java)
+                        val intent = Intent(this, LicenseActivity::class.java)
                         startActivity(intent)
                         true
                     }
@@ -105,7 +106,7 @@ class SearchActivity : AppCompatActivity() {
             popupMenu.show()
         }
 
-        recycler_view_search.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+        /*recycler_view_search.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
@@ -126,6 +127,20 @@ class SearchActivity : AppCompatActivity() {
                     imageLoad(searchWord)
                 }
             }
+        })*/
+
+        recycler_view_search.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if(!recyclerView!!.canScrollVertically(1)){
+                    if(userScrolled){
+                        progress_bar_search.visibility = View.VISIBLE
+                        imageLoad(searchWord)
+                        userScrolled = false
+                    }
+                }
+            }
         })
 
     }
@@ -134,56 +149,6 @@ class SearchActivity : AppCompatActivity() {
     fun View.hideKeyboard(){
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(windowToken, 0)
-    }
-
-
-    // 첫 검색
-    fun searchImageWithWord(searchWord: String){
-        Log.d("SearchActivity", "검색 시작")
-
-        Log.d("SearchActivity", "searchImageWithWord searchWord : $searchWord")
-        val url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=$API_KEY&text=$searchWord&safe_search=1&content_type=1&sort=interestingness-desc&per_page=50&format=json"
-
-        val request = Request.Builder().url(url).build()
-        val client = OkHttpClient()
-        client.newCall(request).enqueue(object : Callback{
-            override fun onFailure(call: Call, e: IOException) {
-                Log.d("SearchActivity", "OkHttp 응답 실패")
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                Log.d("SearchActivity", "OkHttp 응답 받음")
-
-                if(response.isSuccessful){
-                    Log.d("SearchActivity", "response Successful")
-
-                    var body = response.body()?.string()
-                    body = body?.replace("jsonFlickrApi(", "")
-                    body = body?.replace(")", "")
-
-                    Log.d("SearchActivity", "body = $body")
-
-                    val gson = GsonBuilder().setPrettyPrinting().create()
-                    val flickrResponse = gson.fromJson(body, FlickrResponse::class.java)
-                    Log.d("SearchActivity", "flickrResponse = $flickrResponse")
-                    Log.d("SearchActivity", "first photo title = ${flickrResponse!!.photos.photo[0].title}")
-                    Log.d("SearchActivity", "first photo img url = ${flickrResponse.photos.photo[0].getImgUrl()}")
-
-                    runOnUiThread {
-                        Log.d("SearchActivity", "runOnUiThread recycler view adapter start")
-                        iv_enter_keyword.visibility = View.INVISIBLE
-                        recycler_view_search.visibility = View.VISIBLE
-                        recycler_view_search.adapter = PhotoAdapter(flickrResponse.photos.photo.toMutableList())
-
-                        // 새로운 검색일 때 photoList 업데이트
-                        photosList = flickrResponse.photos.photo.toMutableList()
-                        currentPage = 1
-                    }
-                }else{
-                    Log.d("SearchActivity", "response Unsuccessful")
-                }
-            }
-        })
     }
 
     // 스크롤 밑으로 했을 때 새로운 이미지 로드
@@ -227,13 +192,14 @@ class SearchActivity : AppCompatActivity() {
                             currentPage++
                             photoAdapter = PhotoAdapter(photosList)
                             recycler_view_search.adapter = photoAdapter
+                            userScrolled = true
                         }
                         else {
                             photosList.addAll(flickrResponse.photos.photo)
                             currentPage++
                             photoAdapter.update(photosList)
                             progress_bar_search.visibility = View.INVISIBLE
-                            tv_progress_guide.visibility = View.INVISIBLE
+                            userScrolled = true
                         }
                     }
                 }else{

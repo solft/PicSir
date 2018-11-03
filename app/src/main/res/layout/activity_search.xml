@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchActivity"
+    tools:context=".activities.SearchActivity"
     android:background="@color/white">
 
     <android.support.design.widget.AppBarLayout
@@ -23,10 +23,10 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/search_margin"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:background="@drawable/bg_search"
-                android:layout_margin="5dp">
+                android:background="@drawable/bg_search">
                 <ImageView
                     android:id="@+id/iv_search"
                     android:layout_width="wrap_content"
@@ -87,19 +87,20 @@
             android:id="@+id/iv_enter_keyword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
             android:src="@drawable/img_enter_keyword"
             android:contentDescription="@string/img_wait" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
+            android:visibility="invisible"
             android:scrollbars="vertical"
-            android:scrollbarStyle="outsideInset"
-            android:layout_margin="@dimen/recycler_margin"
-            android:padding="@dimen/search_padding">
+            android:scrollbarStyle="outsideOverlay"
+            android:layout_marginStart="@dimen/recycler_margin"
+            android:layout_marginEnd="@dimen/recycler_margin"
+            android:layout_marginTop="@dimen/recycler_margin"
+            android:paddingStart="@dimen/recycler_padding"
+            android:paddingEnd="@dimen/recycler_padding">
         </android.support.v7.widget.RecyclerView>
         <ProgressBar
             android:id="@+id/progress_bar_search"
