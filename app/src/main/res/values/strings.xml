@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">PicSir</string>
     <string name="search_hint">검색어</string>
+    <string name="loading_text">로딩이 되지 않으면 위로 살짝 올려주세요</string>
+
+    <string name="icon_search">검색 아이콘</string>
+    <string name="icon_setting">세팅 메뉴 아이콘: 리니어/그리드 변경, 오픈소스 라이선스</string>
+    <string name="img_wait">초기에 검색을 대기하는 상태 이미지</string>
 
 
     <string name="open_source_license">

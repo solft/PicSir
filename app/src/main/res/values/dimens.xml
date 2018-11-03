@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="search_padding">4dp</dimen>
-    <dimen name="search_margin">10dp</dimen>
+    <dimen name="search_margin">8dp</dimen>
 
     <dimen name="recycler_margin">5dp</dimen>
     <dimen name="recycler_padding">5dp</dimen>
