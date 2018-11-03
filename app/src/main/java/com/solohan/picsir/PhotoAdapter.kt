@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.solohan.picsir.dto.Photo
 import kotlinx.android.synthetic.main.item_pic.view.*
 
-class PhotoAdapter(val photo: List<Photo>): RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>(){
+class PhotoAdapter(var photo: MutableList<Photo>): RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return PhotoViewHolder(layoutInflater.inflate(R.layout.item_pic, parent, false))
@@ -29,6 +29,11 @@ class PhotoAdapter(val photo: List<Photo>): RecyclerView.Adapter<PhotoAdapter.Ph
                 .into(holder.image)
 
         holder.photo = photo[position]
+    }
+
+    fun update(newPhoto: MutableList<Photo>){
+        photo = newPhoto
+        notifyDataSetChanged()
     }
 
     class PhotoViewHolder(view: View, var photo: Photo? = null) : RecyclerView.ViewHolder(view){
