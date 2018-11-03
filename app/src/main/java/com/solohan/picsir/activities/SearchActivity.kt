@@ -24,7 +24,7 @@ import java.io.IOException
 
 class SearchActivity : AppCompatActivity() {
     companion object {
-        const val API_KEY = "cef74a9189ee4116482425e2489bc861"
+        const val API_KEY = "Flickr_API_KEY"
     }
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager
