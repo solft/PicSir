@@ -53,7 +53,7 @@ class PhotoAdapter(var photo: MutableList<Photo>): RecyclerView.Adapter<PhotoAda
 
                 val intent = Intent(view.context, DetailActivity::class.java)
                 intent.putExtra(PHOTO_TITLE_KEY, photo?.title)
-                intent.putExtra(PHOTO_URL_KEY, photo?.getImgUrl() + "_b.jpg")
+                intent.putExtra(PHOTO_URL_KEY, photo?.getImgUrl() + "_z.jpg")
                 view.context.startActivity(intent)
             }
         }
