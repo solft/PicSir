@@ -22,3 +22,8 @@ Flickr API를 사용하여 만든 사진 검색기
 검색창에서 사진을 클릭하면 클릭한 사진의 상세창으로 넘어갑니다.\
 사진을 클릭하면 확대해서 볼 수 있고, 저장하고 싶으면 우측하단의 Floating Button을 누르면 Pictures 폴더에 저장됩니다.\
 Android 6.0(API 레벨 23)부터는 쓰기 권한이 런타임 중에 요청됩니다.
+
+# 스크린샷
+<img src="https://user-images.githubusercontent.com/40908341/47959412-cbf4d780-e026-11e8-844a-922e59b8824a.jpg" alt="alt text" width="180px" height="320px"><img src="https://user-images.githubusercontent.com/40908341/47959413-cbf4d780-e026-11e8-89cf-84ae1097e390.jpg" alt="alt text" width="180px" height="320px">
+<img src="https://user-images.githubusercontent.com/40908341/47959414-cc8d6e00-e026-11e8-8ed5-500c4640d301.jpg" alt="alt text" width="180px" height="320px">
+<img src="https://user-images.githubusercontent.com/40908341/47959410-cbf4d780-e026-11e8-82a1-1f5304d4d8c9.jpg" alt="alt text" width="180px" height="320px"><img src="https://user-images.githubusercontent.com/40908341/47959411-cbf4d780-e026-11e8-84f7-ae01f823a569.jpg" alt="alt text" width="180px" height="320px">
