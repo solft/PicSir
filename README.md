@@ -2,6 +2,7 @@
 ![web_hi_res_512](https://user-images.githubusercontent.com/40908341/47954651-c8823180-dfcf-11e8-9ebb-3b84dc646db0.png)
 
 Flickr API를 사용하여 만든 사진 검색기
+API_KEY를 입력해야 동작합니다.
 
 # 인트로
 ![splash](https://user-images.githubusercontent.com/40908341/47954492-e0f14c80-dfcd-11e8-8135-368e6cc5d6c1.png)
